@@ -73,34 +73,13 @@ function App(props) {
             name: "Наушники",
             price: 1500,
             bought: false,
-            rating: 5,
+            rating: ' ****',
             image: "http://intocode.ru/d/react-project-1/images/9.jpg"
         }
     ]);
-
-    const products = database.map((i, index) => {
-        return (
-            <div className='card'>
-                <div className="card-image">
-                    <img src={i.image} alt="sss"/>
-                </div>
-                <div className="card-info">
-                    <div className="card-name">{i.name}</div>
-                    <div className='card-rating'>{i.rating}</div>
-                    <div className="card-price">{i.price} ₽</div>
-                    <div className='card-button'>
-                        <button className='btn' onClick={() => buttonClick(index) } disabled={i.bought}>
-                            {i.bought ? 'Добавлено в корзину' : 'Добавить в корзину'}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        );
-    });
-
     const buttonClick = (i) => {
-        const filtered = database.map((item, index) => {
-            if (i === index) {
+        const filtered = database.map((item, id) => {
+            if (i === id) {
                 return {
                     ...item,
                     bought: true,
@@ -114,7 +93,7 @@ function App(props) {
     return (
         <div className='app'>
             <Header database={database}/>
-            <Content products={products} buttonClick={buttonClick}/>
+            <Content database={database} buttonClick={buttonClick} setDatabase={setDatabase}/>
         </div>
     );
 }
